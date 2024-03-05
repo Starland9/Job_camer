@@ -1,8 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:job_camer/src/screens/home/home_screen.dart';
 import 'package:job_camer/src/shared/constants/string_const.dart';
+import 'package:job_camer/src/shared/theme/app_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -11,40 +14,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return GetMaterialApp(
       title: AppStrings.appName,
-      theme: CupertinoThemeData(
-        brightness: Brightness.light,
-        primaryColor: CupertinoColors.activeBlue,
-        scaffoldBackgroundColor: CupertinoColors.white,
-        textTheme: CupertinoTextThemeData(
-          textStyle: TextStyle(
-            fontFamily: GoogleFonts.montserrat().fontFamily,
-            color: CupertinoColors.black,
-            fontSize: 17.0,
-          ),
-          navTitleTextStyle: TextStyle(
-            fontFamily: GoogleFonts.montserrat().fontFamily,
-            color: CupertinoColors.black,
-            fontSize: 17.0,
-          ),
-          navActionTextStyle: TextStyle(
-            fontFamily: GoogleFonts.montserrat().fontFamily,
-            color: CupertinoColors.activeBlue,
-            fontSize: 17.0,
-          ),
-          pickerTextStyle: TextStyle(
-            fontFamily: GoogleFonts.montserrat().fontFamily,
-            color: CupertinoColors.black,
-            fontSize: 17.0,
-          ),
-          navLargeTitleTextStyle: TextStyle(
-            fontFamily: GoogleFonts.montserrat().fontFamily,
-            color: CupertinoColors.black,
-            fontSize: 24.0,
-          ),
-        ),
-      ),
+      theme: AppTheme.light(),
+      debugShowCheckedModeBanner: false,
+      home: const HomeScreen(),
+      locale: const Locale('fr', 'FR'),
     );
   }
 }
