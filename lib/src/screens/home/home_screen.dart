@@ -2,7 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:job_camer/src/screens/home/components/mini_job_card.dart';
+import 'package:job_camer/src/screens/job/components/job_tile_card.dart';
+import 'package:job_camer/src/screens/job/components/mini_job_card.dart';
 import 'package:job_camer/src/shared/constants/assets_const.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -122,28 +123,4 @@ class HomeScreen extends StatelessWidget {
   void _notification() {}
 
   void _search() {}
-}
-
-class JobTileCard extends StatelessWidget {
-  const JobTileCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Card(
-      elevation: 1,
-      child: Column(
-        children: [
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: CachedNetworkImageProvider(
-                "https://picsum.photos/200",
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
