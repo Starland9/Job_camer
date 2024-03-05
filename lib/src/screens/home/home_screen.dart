@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,64 +13,136 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              _buildTabBar(),
+              SizedBox(height: Get.height * 0.02),
+              Text("Mes opportunités", style: Get.textTheme.titleLarge),
+              SizedBox(height: Get.height * 0.02),
+              FadeInLeftBig(child: _buildJobsMiniCards()),
+              SizedBox(height: Get.height * 0.04),
+              Text("Job récents", style: Get.textTheme.titleLarge),
+              Column(
                 children: [
-                  Text(
-                    "Hello\nLandry",
-                    style: Get.textTheme.titleMedium?.copyWith(
-                      color: Get.theme.primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  SizedBox(height: Get.height * 0.02),
+                  ...List.generate(
+                    5,
+                    (index) => const JobTileCard(),
                   ),
-                  const CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider(
-                      "https://picsum.photos/200",
-                    ),
-                  )
                 ],
               ),
-              SizedBox(height: Get.height * 0.05),
-              Text("Mes opportunités", style: Get.textTheme.titleLarge),
-              SizedBox(height: Get.height * 0.05),
-              SizedBox(
-                height: Get.height * 0.25,
-                child: const Row(
-                  children: [
-                    Expanded(
-                      child: MiniJobCard(
-                        text: "A Temps partiel",
-                        assetPath: AppAssets.partTimeJobIcon,
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: MiniJobCard(
-                              text: "A Temps complet",
-                              assetPath: AppAssets.fullTimeJobIcon,
-                            ),
-                          ),
-                          Expanded(
-                            child: MiniJobCard(
-                              text: "A Distance",
-                              assetPath: AppAssets.remoteJobIcon,
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Row _buildTabBar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Row(
+          children: [
+            const CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(
+                "https://picsum.photos/200",
+              ),
+            ),
+            SizedBox(width: Get.width * 0.02),
+            Text(
+              "Landry Simo",
+              style: Get.textTheme.titleMedium?.copyWith(
+                color: Get.theme.primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        ButtonBar(
+          mainAxisSize: MainAxisSize.min,
+          alignment: MainAxisAlignment.center,
+          children: [
+            IconButton.filledTonal(
+              onPressed: _search,
+              icon: const Icon(Icons.search_outlined),
+            ),
+            IconButton.filledTonal(
+              onPressed: _notification,
+              icon: const Icon(Icons.notifications_outlined),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
+  SizedBox _buildJobsMiniCards() {
+    return SizedBox(
+      height: Get.height * 0.35,
+      child: Row(
+        children: [
+          const Expanded(
+            child: MiniJobCard(
+              text: "A plein complet",
+              assetPath: AppAssets.fullTimeJobIcon,
+              count: 8,
+            ),
+          ),
+          SizedBox(width: Get.width * 0.02),
+          Expanded(
+            child: Column(
+              children: [
+                const Expanded(
+                  child: MiniJobCard(
+                    text: "A temps partiel",
+                    assetPath: AppAssets.partTimeJobIcon,
+                    count: 15,
+                  ),
+                ),
+                SizedBox(height: Get.height * 0.01),
+                const Expanded(
+                  child: MiniJobCard(
+                    text: "A distance",
+                    assetPath: AppAssets.remoteJobIcon,
+                    count: 12,
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  void _notification() {}
+
+  void _search() {}
+}
+
+class JobTileCard extends StatelessWidget {
+  const JobTileCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Card(
+      elevation: 1,
+      child: Column(
+        children: [
+          ListTile(
+            leading: CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(
+                "https://picsum.photos/200",
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
