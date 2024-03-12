@@ -1,7 +1,7 @@
 import 'package:faker/faker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:job_camer/src/screens/job/components/map.dart';
 
 class JobDescriptionScreen extends StatelessWidget {
   const JobDescriptionScreen({super.key});
@@ -24,12 +24,7 @@ class JobDescriptionScreen extends StatelessWidget {
           const SizedBox(height: 10),
           Text(Faker().lorem.sentences(3).join("/n")),
           const SizedBox(height: 20),
-          _buildTitle(context, "Location"),
-          SizedBox(
-            width: double.maxFinite,
-            height: Get.height * 0.4,
-            child: const MapWidget(),
-          ),
+          CupertinoButton.filled(onPressed: _apply, child: const Text("Apply")),
         ],
       ),
     );
@@ -44,4 +39,6 @@ class JobDescriptionScreen extends StatelessWidget {
           ),
     );
   }
+
+  void _apply() {}
 }
