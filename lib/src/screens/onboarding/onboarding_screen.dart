@@ -22,10 +22,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Column(
-        children: [
-          Expanded(child: OnboardingSlide1()),
-        ],
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(child: OnboardingSlide1()),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onDoneTap,
