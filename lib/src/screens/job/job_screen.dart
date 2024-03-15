@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,29 +40,46 @@ class _JobScreenState extends State<JobScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: 16),
               Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Job Title',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Get.theme.primaryColor,
-                            ),
+                      Expanded(
+                        child: Text(
+                          faker.job.title(),
+                          textAlign: TextAlign.center,
+                          style:
+                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Get.theme.primaryColor,
+                                  ),
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(height: Get.height * 0.02),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text("🏠 Company"),
-                      SizedBox(width: 5),
-                      Text("📅 Location"),
-                      SizedBox(width: 5),
-                      Text("⏳ Time"),
+                      Expanded(
+                          child: Text(
+                        "🏠 ${faker.company.name()}",
+                        maxLines: 1,
+                      )),
+                      const SizedBox(width: 5),
+                      Expanded(
+                          child: Text(
+                        "📅 ${faker.address.city()}",
+                        maxLines: 1,
+                      )),
+                      const SizedBox(width: 5),
+                      const Expanded(
+                          child: Text(
+                        "⏳ Full time",
+                        maxLines: 1,
+                      )),
                     ],
                   ),
                   SizedBox(height: Get.height * 0.02),

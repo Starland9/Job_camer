@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:job_camer/src/screens/job/job_screen.dart';
@@ -25,18 +26,17 @@ class _JobTileCardState extends State<JobTileCard> {
           children: [
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: ListTile(
-                    leading: CircleAvatar(
+                    leading: const CircleAvatar(
                       backgroundImage: CachedNetworkImageProvider(
-                        "https://picsum.photos/200",
-                      ),
+                          "https://picsum.photos/200"),
                     ),
                     title: Text(
-                      "Job Title",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      faker.job.title(),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text("Company Name"),
+                    subtitle: Text(faker.company.name()),
                   ),
                 ),
                 IconButton(
@@ -50,10 +50,11 @@ class _JobTileCardState extends State<JobTileCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Il y a 10 jours'),
+                  Text('Il y a ${faker.randomGenerator.integer(365)} jours'),
                   Text.rich(
                     TextSpan(
-                      text: "150K XAF",
+                      text:
+                          "${faker.randomGenerator.fromPattern(["1#0k"])} XAF",
                       style: TextStyle(
                         color: Get.theme.primaryColor,
                         fontWeight: FontWeight.bold,

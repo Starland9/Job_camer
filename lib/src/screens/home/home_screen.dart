@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:job_camer/src/screens/job/components/job_tile_card.dart';
 import 'package:job_camer/src/screens/job/components/mini_job_card.dart';
+import 'package:job_camer/src/screens/notification/notifications_screen.dart';
+import 'package:job_camer/src/screens/search/search_screen.dart';
 import 'package:job_camer/src/shared/constants/assets_const.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -120,7 +122,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void _notification() {}
+  void _notification() {
+    Get.to(const NotificationsScreen());
+  }
 
-  void _search() {}
+  void _search() {
+    Get.to(const SearchScreen());
+  }
 }
