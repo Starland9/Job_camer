@@ -8,25 +8,23 @@ class JobDescriptionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildTitle(context, "Job Description"),
-          const SizedBox(height: 10),
-          Text(Faker().lorem.sentences(3).join("/n")),
-          const SizedBox(height: 20),
-          _buildTitle(context, "Requirements"),
-          const SizedBox(height: 10),
-          for (var sentence in Faker().lorem.sentences(5)) Text("✅ $sentence"),
-          const SizedBox(height: 20),
-          _buildTitle(context, "Responsibilities"),
-          const SizedBox(height: 10),
-          Text(Faker().lorem.sentences(3).join("/n")),
-          const SizedBox(height: 20),
-          CupertinoButton.filled(onPressed: _apply, child: const Text("Apply")),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildTitle(context, "Job Description"),
+        const SizedBox(height: 10),
+        Text(Faker().lorem.sentences(3).join("/n")),
+        const SizedBox(height: 20),
+        _buildTitle(context, "Requirements"),
+        const SizedBox(height: 10),
+        for (var sentence in Faker().lorem.sentences(5)) Text("✅ $sentence"),
+        const SizedBox(height: 20),
+        _buildTitle(context, "Responsibilities"),
+        const SizedBox(height: 10),
+        Text(Faker().lorem.sentences(3).join("/n")),
+        const SizedBox(height: 20),
+        CupertinoButton.filled(onPressed: _apply, child: const Text("Apply")),
+      ],
     );
   }
 

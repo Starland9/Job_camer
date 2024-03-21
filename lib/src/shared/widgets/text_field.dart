@@ -7,12 +7,15 @@ class CustomTexTField extends StatelessWidget {
     required this.hintText,
     required this.controller,
     this.validator,
+    this.minLines,
+    this.maxLines,
   });
 
   final String hintText;
   final TextEditingController controller;
   final String? Function(String?)? validator;
-
+  final int? minLines;
+  final int? maxLines;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -21,6 +24,8 @@ class CustomTexTField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
       ),
+      minLines: minLines,
+      maxLines: maxLines,
     );
   }
 }
