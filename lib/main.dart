@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:job_camer/src/screens/global/global_screen.dart';
+import 'package:job_camer/src/screens/onboarding/onboarding_screen.dart';
 import 'package:job_camer/src/shared/constants/string_const.dart';
 import 'package:job_camer/src/shared/theme/app_theme.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: AppStrings.appName,
       theme: AppTheme.light(),
       debugShowCheckedModeBanner: false,
-      home: const GlobalScreen(),
+      home: const OnboardingScreen(),
       locale: const Locale('fr', 'FR'),
     );
   }

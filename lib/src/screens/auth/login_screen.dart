@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:get/get.dart';
 import 'package:job_camer/src/screens/auth/register_screen.dart';
+import 'package:job_camer/src/screens/global/global_screen.dart';
 import 'package:job_camer/src/shared/widgets/text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -143,6 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    Get.to(() => const GlobalScreen());
   }
 
   void _onCheckboxChanged(bool? value) {
