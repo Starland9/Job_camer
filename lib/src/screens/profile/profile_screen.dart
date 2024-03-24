@@ -18,9 +18,7 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 14),
-            const CircleAvatar(
-              radius: 75,
-            ),
+            const CircleAvatar(radius: 40),
             const SizedBox(height: 16),
             Text(
               faker.person.name(),
