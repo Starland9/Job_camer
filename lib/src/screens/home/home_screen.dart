@@ -123,10 +123,10 @@ class HomeScreen extends StatelessWidget {
   }
 
   void _notification() {
-    Get.to(const NotificationsScreen());
+    Get.to(() => const NotificationsScreen());
   }
 
   void _search() {
-    Get.to(const SearchScreen());
+    Get.to(() => const SearchScreen());
   }
 }

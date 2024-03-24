@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:job_camer/src/screens/home/home_screen.dart';
+import 'package:job_camer/src/screens/auth/register_screen.dart';
 import 'package:job_camer/src/screens/onboarding/slides/slide_1.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -42,6 +42,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   //     ];
 
   void _onDoneTap() {
-    Get.to(() => const HomeScreen());
+    Get.to(() => const RegisterScreen());
   }
 }

@@ -14,8 +14,6 @@ class AppTheme {
         textTheme: GoogleFonts.latoTextTheme(),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Get.theme.primaryColor,
-            foregroundColor: Get.theme.colorScheme.onPrimary,
             fixedSize: const Size.fromWidth(double.maxFinite),
             shape: ContinuousRectangleBorder(
               borderRadius: BorderRadius.circular(10),
