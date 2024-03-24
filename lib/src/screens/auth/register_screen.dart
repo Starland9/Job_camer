@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:get/get.dart';
 import 'package:job_camer/src/screens/auth/login_screen.dart';
-import 'package:job_camer/src/screens/home/home_screen.dart';
+import 'package:job_camer/src/screens/global/global_screen.dart';
 import 'package:job_camer/src/shared/widgets/text_field.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -133,7 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _login() {
-    Get.to(() => const HomeScreen());
+    Get.offAll(() => const GlobalScreen());
   }
 
   void _googleLogin() {

@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    Get.to(() => const GlobalScreen());
+    Get.offAll(() => const GlobalScreen());
   }
 
   void _onCheckboxChanged(bool? value) {
