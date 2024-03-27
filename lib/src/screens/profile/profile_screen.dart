@@ -1,6 +1,5 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
-import 'package:job_camer/src/screens/job/components/job_tile_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -28,31 +27,31 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Text(faker.internet.email()),
             Text(faker.phoneNumber.random.fromPattern(['+2376########'])),
-            Expanded(
+            const Expanded(
               child: DefaultTabController(
                   length: 2,
                   child: Expanded(
                     child: Column(
                       children: [
-                        const TabBar(tabs: [
+                        TabBar(tabs: [
                           Tab(text: "Mes favoris"),
                           Tab(text: "Mes Offres")
                         ]),
                         Expanded(
                           child: TabBarView(
                             children: [
-                              ListView(
-                                children: [
-                                  ...List.generate(
-                                      12, (index) => const JobTileCard())
-                                ],
-                              ),
-                              ListView(
-                                children: [
-                                  ...List.generate(
-                                      12, (index) => const JobTileCard())
-                                ],
-                              ),
+                              //   ListView(
+                              //     children: [
+                              //       ...List.generate(
+                              //           12, (index) => const JobTileCard())
+                              //     ],
+                              //   ),
+                              //   ListView(
+                              //     children: [
+                              //       ...List.generate(
+                              //           12, (index) => const JobTileCard())
+                              //     ],
+                              //   ),
                             ],
                           ),
                         )

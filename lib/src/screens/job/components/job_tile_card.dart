@@ -1,13 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:faker/faker.dart';
+import 'package:faker/faker.dart' as faker;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:job_camer/src/models/job/job.dart';
 import 'package:job_camer/src/screens/job/job_screen.dart';
 
 class JobTileCard extends StatefulWidget {
   const JobTileCard({
     super.key,
+    required this.job,
   });
+
+  final Job job;
 
   @override
   State<JobTileCard> createState() => _JobTileCardState();
@@ -33,10 +37,10 @@ class _JobTileCardState extends State<JobTileCard> {
                           "https://picsum.photos/200"),
                     ),
                     title: Text(
-                      faker.job.title(),
+                      widget.job.title,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(faker.company.name()),
+                    subtitle: Text(widget.job.company),
                   ),
                 ),
                 IconButton(
@@ -50,11 +54,11 @@ class _JobTileCardState extends State<JobTileCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Il y a ${faker.randomGenerator.integer(365)} jours'),
+                  Text(
+                      'Il y a ${faker.faker.randomGenerator.integer(365)} jours'),
                   Text.rich(
                     TextSpan(
-                      text:
-                          "${faker.randomGenerator.fromPattern(["1#0k"])} XAF",
+                      text: "${widget.job.salary} XAF",
                       style: TextStyle(
                         color: Get.theme.primaryColor,
                         fontWeight: FontWeight.bold,
@@ -82,7 +86,9 @@ class _JobTileCardState extends State<JobTileCard> {
 
   void _goToJobDetails() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return const JobScreen();
+      return JobScreen(
+        job: widget.job,
+      );
     }));
   }
 }
