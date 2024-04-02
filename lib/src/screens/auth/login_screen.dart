@@ -2,9 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:get/get.dart';
+import 'package:job_camer/src/repositories/config_repository.dart';
+import 'package:job_camer/src/repositories/user_repository.dart';
 import 'package:job_camer/src/screens/auth/register_screen.dart';
 import 'package:job_camer/src/screens/global/global_screen.dart';
+import 'package:job_camer/src/shared/utils/methods.dart';
 import 'package:job_camer/src/shared/widgets/text_field.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -31,23 +35,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(15),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _buildTextHeader(),
-                const SizedBox(height: 50),
-                _buildBody(),
-                const SizedBox(height: 32),
-                _buildButtons(),
-                _buidChangeAuth()
-              ],
+    return LoaderOverlay(
+      child: Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(15),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _buildTextHeader(),
+                  const SizedBox(height: 50),
+                  _buildBody(),
+                  const SizedBox(height: 32),
+                  _buildButtons(),
+                  _buidChangeAuth()
+                ],
+              ),
             ),
           ),
         ),
@@ -71,18 +77,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Column _buildButtons() {
     return Column(
       children: [
-        ElevatedButton(
+        CupertinoButton.filled(
           onPressed: _login,
           child: const Text("Connexion"),
         ),
-        ElevatedButton.icon(
-          onPressed: _googleLogin,
-          icon: const Icon(Icons.g_mobiledata),
-          label: const Text("Google"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-          ),
-        )
       ],
     );
   }
@@ -144,17 +142,32 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    Get.offAll(() => const GlobalScreen());
+
+    context.loaderOverlay.show();
+    UserRepository.login(
+      email: _emailController.text,
+      password: _passwordController.text,
+    ).then((value) {
+      context.loaderOverlay.hide();
+      if (value == null) {
+        ToastUtils.showErrorToast("Email ou mot de passe invalide");
+        return;
+      }
+
+      ToastUtils.showGoodToast("Connecté avec succes");
+
+      if (_isRemembered) {
+        ConfigRepository.setCurrentUser(value);
+      }
+
+      Get.offAll(() => const GlobalScreen());
+    });
   }
 
   void _onCheckboxChanged(bool? value) {
     setState(() {
       _isRemembered = value ?? false;
     });
-  }
-
-  void _googleLogin() {
-    _login();
   }
 
   void _goToRegister() {

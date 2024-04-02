@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:job_camer/src/models/job/job.dart';
 import 'package:job_camer/src/screens/company/company_screen.dart';
 import 'package:job_camer/src/screens/job/job_description_screen.dart';
 
 class JobScreen extends StatefulWidget {
-  const JobScreen({super.key});
+  const JobScreen({super.key, required this.job, required this.onApply});
+
+  final Job job;
+  final VoidCallback onApply;
 
   @override
   State<JobScreen> createState() => _JobScreenState();
@@ -26,14 +29,14 @@ class _JobScreenState extends State<JobScreen> {
               const Row(
                 children: [BackButton()],
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // BackButton(),
                   Expanded(
                     child: CircleAvatar(
                       backgroundImage: CachedNetworkImageProvider(
-                        "https://picsum.photos/200",
+                        widget.job.companyLogo,
                       ),
                       radius: 60,
                     ),
@@ -48,7 +51,7 @@ class _JobScreenState extends State<JobScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          faker.job.title(),
+                          widget.job.title,
                           textAlign: TextAlign.center,
                           style:
                               Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -64,22 +67,24 @@ class _JobScreenState extends State<JobScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Expanded(
+                        child: Text(
+                          "🏠 ${widget.job.company}",
+                          maxLines: 1,
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Expanded(
                           child: Text(
-                        "🏠 ${faker.company.name()}",
+                        "📍 ${widget.job.location}",
                         maxLines: 1,
                       )),
                       const SizedBox(width: 5),
                       Expanded(
-                          child: Text(
-                        "📅 ${faker.address.city()}",
-                        maxLines: 1,
-                      )),
-                      const SizedBox(width: 5),
-                      const Expanded(
-                          child: Text(
-                        "⏳ Full time",
-                        maxLines: 1,
-                      )),
+                        child: Text(
+                          widget.job.type.toString(),
+                          maxLines: 1,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: Get.height * 0.02),
@@ -104,7 +109,10 @@ class _JobScreenState extends State<JobScreen> {
                   ),
                   SizedBox(height: Get.height * 0.02),
                   if (isDescription)
-                    const JobDescriptionScreen()
+                    JobDescriptionScreen(
+                      job: widget.job,
+                      onApplySuccess: () => widget.onApply(),
+                    )
                   else
                     const CompanyScreen()
                 ],

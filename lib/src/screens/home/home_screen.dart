@@ -2,14 +2,26 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:job_camer/src/models/job/job.dart';
+import 'package:job_camer/src/repositories/config_repository.dart';
+import 'package:job_camer/src/repositories/job_repository.dart';
 import 'package:job_camer/src/screens/job/components/job_tile_card.dart';
 import 'package:job_camer/src/screens/job/components/mini_job_card.dart';
 import 'package:job_camer/src/screens/notification/notifications_screen.dart';
 import 'package:job_camer/src/screens/search/search_screen.dart';
 import 'package:job_camer/src/shared/constants/assets_const.dart';
+import 'package:job_camer/src/shared/constants/string_const.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late final user = ConfigRepository.configs.user!;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +42,33 @@ class HomeScreen extends StatelessWidget {
               Column(
                 children: [
                   SizedBox(height: Get.height * 0.02),
-                  ...List.generate(
-                    5,
-                    (index) => const JobTileCard(),
-                  ),
+                  FutureBuilder(
+                    future: JobRepository.getJobs(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (snapshot.hasData) {
+                        if (snapshot.data!.isEmpty) {
+                          return const Center(
+                            child: Text("Aucune opportunité pour l'instant"),
+                          );
+                        }
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return JobTileCard(
+                              job: snapshot.data![index],
+                            );
+                          },
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                  )
                 ],
               ),
             ],
@@ -50,14 +85,18 @@ class HomeScreen extends StatelessWidget {
       children: [
         Row(
           children: [
-            const CircleAvatar(
-              backgroundImage: CachedNetworkImageProvider(
-                "https://picsum.photos/200",
+            if (user.profilePic.isNotEmpty)
+              CircleAvatar(
+                backgroundImage: MemoryImage(user.profilePic),
+              )
+            else
+              const CircleAvatar(
+                backgroundImage:
+                    CachedNetworkImageProvider("https://picsum.photos/200"),
               ),
-            ),
             SizedBox(width: Get.width * 0.02),
             Text(
-              "Landry Simo",
+              user.fullname,
               style: Get.textTheme.titleMedium?.copyWith(
                 color: Get.theme.primaryColor,
                 fontWeight: FontWeight.bold,
@@ -88,30 +127,54 @@ class HomeScreen extends StatelessWidget {
       height: Get.height * 0.35,
       child: Row(
         children: [
-          const Expanded(
-            child: MiniJobCard(
-              text: "A plein complet",
-              assetPath: AppAssets.fullTimeJobIcon,
-              count: 8,
+          Expanded(
+            child: ValueListenableBuilder(
+              builder: (context, box, widget) {
+                return MiniJobCard(
+                  text: "A plein complet",
+                  assetPath: AppAssets.fullTimeJobIcon,
+                  count: box.values
+                      .where((element) => element.type == JobType.fullTime)
+                      .length,
+                );
+              },
+              valueListenable: Hive.box<Job>(AppStrings.jobBox).listenable(),
             ),
           ),
           SizedBox(width: Get.width * 0.02),
           Expanded(
             child: Column(
               children: [
-                const Expanded(
-                  child: MiniJobCard(
-                    text: "A temps partiel",
-                    assetPath: AppAssets.partTimeJobIcon,
-                    count: 15,
-                  ),
+                ValueListenableBuilder(
+                  builder: (context, box, widget) {
+                    return Expanded(
+                      child: MiniJobCard(
+                        text: "A temps partiel",
+                        assetPath: AppAssets.partTimeJobIcon,
+                        count: box.values
+                            .where(
+                                (element) => element.type == JobType.partTime)
+                            .length,
+                      ),
+                    );
+                  },
+                  valueListenable:
+                      Hive.box<Job>(AppStrings.jobBox).listenable(),
                 ),
                 SizedBox(height: Get.height * 0.01),
-                const Expanded(
-                  child: MiniJobCard(
-                    text: "A distance",
-                    assetPath: AppAssets.remoteJobIcon,
-                    count: 12,
+                Expanded(
+                  child: ValueListenableBuilder(
+                    builder: (context, box, widget) {
+                      return MiniJobCard(
+                        text: "A distance",
+                        assetPath: AppAssets.remoteJobIcon,
+                        count: box.values
+                            .where((element) => element.type == JobType.remote)
+                            .length,
+                      );
+                    },
+                    valueListenable:
+                        Hive.box<Job>(AppStrings.jobBox).listenable(),
                   ),
                 )
               ],
