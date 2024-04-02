@@ -36,7 +36,7 @@ class _MiniJobCardState extends State<MiniJobCard> {
         //   color: _color ?? Get.theme.primaryColor,
         // ),
         Badge(
-          label: Text("${widget.count}k"),
+          label: Text("${widget.count}"),
           backgroundColor: _color ?? Get.theme.primaryColor,
           smallSize: 25,
           largeSize: 25,

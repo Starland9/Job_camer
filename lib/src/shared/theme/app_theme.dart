@@ -33,6 +33,7 @@ class AppTheme {
           ),
         ),
         appBarTheme: const AppBarTheme(
+            foregroundColor: Colors.white,
             backgroundColor: Colors.green,
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Colors.green,

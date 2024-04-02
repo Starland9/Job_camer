@@ -1,9 +1,16 @@
+import 'dart:typed_data';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:get/get.dart';
+import 'package:job_camer/src/models/user/user.dart';
+import 'package:job_camer/src/repositories/user_repository.dart';
 import 'package:job_camer/src/screens/auth/login_screen.dart';
-import 'package:job_camer/src/screens/global/global_screen.dart';
+import 'package:job_camer/src/shared/utils/methods.dart';
 import 'package:job_camer/src/shared/widgets/text_field.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:uuid/uuid.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -30,23 +37,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(15),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _buildTextHeader(),
-                const SizedBox(height: 50),
-                _buildBody(),
-                const SizedBox(height: 32),
-                _buildButtons(),
-                _buidChangeAuth()
-              ],
+    return LoaderOverlay(
+      child: Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(15),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _buildTextHeader(),
+                  const SizedBox(height: 50),
+                  _buildBody(),
+                  const SizedBox(height: 32),
+                  _buildButtons(),
+                  _buidChangeAuth()
+                ],
+              ),
             ),
           ),
         ),
@@ -61,7 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         const Text("Vous avez un compte?"),
         TextButton(
           onPressed: _gotoLogin,
-          child: const Text("S'enregistrer"),
+          child: const Text("Se connecter"),
         ),
       ],
     );
@@ -70,18 +79,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Column _buildButtons() {
     return Column(
       children: [
-        ElevatedButton(
+        CupertinoButton.filled(
           onPressed: _login,
           child: const Text("S'enregistrer"),
         ),
-        ElevatedButton.icon(
-          onPressed: _googleLogin,
-          icon: const Icon(Icons.g_mobiledata),
-          label: const Text("Google"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-          ),
-        )
       ],
     );
   }
@@ -98,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         CustomTexTField(
           hintText: 'Telephone',
           controller: _phoneController,
-          validator: ValidationBuilder().minLength(10).maxLength(10).build(),
+          validator: ValidationBuilder().minLength(10).build(),
         ),
         const SizedBox(height: 10),
         CustomTexTField(
@@ -133,11 +134,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _login() {
-    Get.offAll(() => const GlobalScreen());
-  }
-
-  void _googleLogin() {
-    _login();
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    context.loaderOverlay.show();
+    UserRepository.addUser(
+      User(
+        id: const Uuid().v4(),
+        fullname: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+        phone: _phoneController.text,
+        profilePic: Uint8List(0),
+        isAdmin: false,
+        pdfPath: null,
+        applications: [],
+      ),
+    ).then((value) {
+      context.loaderOverlay.hide();
+      ToastUtils.showGoodToast(
+          "Compte cree avec succes\nConnectez-vous maintenant");
+      _gotoLogin();
+    });
   }
 
   void _gotoLogin() {

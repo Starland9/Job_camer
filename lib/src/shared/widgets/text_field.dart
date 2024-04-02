@@ -9,6 +9,7 @@ class CustomTexTField extends StatelessWidget {
     this.validator,
     this.minLines,
     this.maxLines,
+    this.keyboardType,
   });
 
   final String hintText;
@@ -16,6 +17,7 @@ class CustomTexTField extends StatelessWidget {
   final String? Function(String?)? validator;
   final int? minLines;
   final int? maxLines;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -26,6 +28,7 @@ class CustomTexTField extends StatelessWidget {
       ),
       minLines: minLines,
       maxLines: maxLines,
+      keyboardType: keyboardType,
     );
   }
 }
