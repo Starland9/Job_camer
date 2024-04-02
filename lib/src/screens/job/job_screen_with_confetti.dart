@@ -37,8 +37,12 @@ class _JobScreenWithConfettisState extends State<JobScreenWithConfettis> {
             job: widget.job,
             onApply: () {
               _controllerTopCenter.play();
-              _audioPlayer.play(AssetSource('apply_job.wav')).then((value) {
-                Navigator.of(context).pop();
+              _audioPlayer
+                  .play(AssetSource('sounds/apply_job.wav'))
+                  .then((value) {
+                Future.delayed(const Duration(seconds: 5)).then((value) {
+                  Navigator.of(context).pop();
+                });
               });
             },
           ),
