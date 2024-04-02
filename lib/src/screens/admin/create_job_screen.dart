@@ -118,7 +118,7 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
         location: _locationController.text,
         salary: _salaryController.text,
         requirements: _requirementController.text,
-        type: JobType.fullTime,
+        type: _type,
       ),
     ).then((value) {
       context.loaderOverlay.hide();

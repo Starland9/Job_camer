@@ -147,6 +147,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         phone: _phoneController.text,
         profilePic: Uint8List(0),
         isAdmin: false,
+        pdfPath: null,
+        applications: [],
       ),
     ).then((value) {
       context.loaderOverlay.hide();

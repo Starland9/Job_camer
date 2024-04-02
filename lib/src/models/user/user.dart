@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:hive/hive.dart';
+import 'package:job_camer/src/models/job/job.dart';
 
 part 'user.g.dart';
 
@@ -27,6 +28,12 @@ class User {
   @HiveField(6)
   Uint8List profilePic;
 
+  @HiveField(7)
+  String? pdfPath;
+
+  @HiveField(8)
+  List<Job> applications;
+
   User({
     required this.id,
     required this.fullname,
@@ -35,5 +42,7 @@ class User {
     required this.phone,
     required this.profilePic,
     required this.isAdmin,
+    required this.pdfPath,
+    required this.applications,
   });
 }

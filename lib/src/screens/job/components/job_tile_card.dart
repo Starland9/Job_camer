@@ -3,7 +3,7 @@ import 'package:faker/faker.dart' as faker;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:job_camer/src/models/job/job.dart';
-import 'package:job_camer/src/screens/job/job_screen.dart';
+import 'package:job_camer/src/screens/job/job_screen_with_confetti.dart';
 
 class JobTileCard extends StatefulWidget {
   const JobTileCard({
@@ -86,7 +86,7 @@ class _JobTileCardState extends State<JobTileCard> {
 
   void _goToJobDetails() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return JobScreen(
+      return JobScreenWithConfettis(
         job: widget.job,
       );
     }));

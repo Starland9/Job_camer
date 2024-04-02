@@ -24,13 +24,15 @@ class UserAdapter extends TypeAdapter<User> {
       phone: fields[4] as String,
       profilePic: fields[6] as Uint8List,
       isAdmin: fields[5] as bool,
+      pdfPath: fields[7] as String?,
+      applications: (fields[8] as List).cast<Job>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,7 +46,11 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(5)
       ..write(obj.isAdmin)
       ..writeByte(6)
-      ..write(obj.profilePic);
+      ..write(obj.profilePic)
+      ..writeByte(7)
+      ..write(obj.pdfPath)
+      ..writeByte(8)
+      ..write(obj.applications);
   }
 
   @override

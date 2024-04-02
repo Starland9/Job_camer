@@ -7,9 +7,10 @@ import 'package:job_camer/src/screens/company/company_screen.dart';
 import 'package:job_camer/src/screens/job/job_description_screen.dart';
 
 class JobScreen extends StatefulWidget {
-  const JobScreen({super.key, required this.job});
+  const JobScreen({super.key, required this.job, required this.onApply});
 
   final Job job;
+  final VoidCallback onApply;
 
   @override
   State<JobScreen> createState() => _JobScreenState();
@@ -108,7 +109,10 @@ class _JobScreenState extends State<JobScreen> {
                   ),
                   SizedBox(height: Get.height * 0.02),
                   if (isDescription)
-                    JobDescriptionScreen(job: widget.job)
+                    JobDescriptionScreen(
+                      job: widget.job,
+                      onApplySuccess: () => widget.onApply(),
+                    )
                   else
                     const CompanyScreen()
                 ],
