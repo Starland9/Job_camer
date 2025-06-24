@@ -25,15 +25,15 @@ if (flutterVersionName == null) {
 android {
     namespace "org.starland.job_camer"
     compileSdk flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    ndkVersion "27.0.12077973"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 
     sourceSets {
@@ -58,7 +58,11 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-}
+
+        // ... other configurations
+        buildFeatures {
+            buildConfig = true
+    }}
 
 flutter {
     source '../..'
