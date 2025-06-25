@@ -23,8 +23,7 @@ class _JobTileCardState extends State<JobTileCard> {
     return GestureDetector(
       onTap: _goToJobDetails,
       child: Card(
-        elevation: 1,
-        surfaceTintColor: Colors.white70,
+        elevation: 0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

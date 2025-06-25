@@ -48,6 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: _jobs.isEmpty
                 ? const Center(child: Text("Aucun job"))
                 : SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       children: [
                         ..._jobs.map((e) => JobTileCard(job: e)),

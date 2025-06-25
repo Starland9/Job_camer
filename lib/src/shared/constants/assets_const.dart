@@ -1,7 +1,7 @@
 class AppAssets {
   static const _imagesPath = 'assets/images';
   static const _iconsPath = 'assets/icons';
-  static const _soundsPath = 'assets/icons';
+  static const _soundsPath = 'assets/sounds';
 
   static const jobSearchImg = '$_imagesPath/job_search.png';
 

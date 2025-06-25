@@ -83,39 +83,43 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          children: [
-            if (user.profilePic.isNotEmpty)
-              CircleAvatar(
-                backgroundImage: MemoryImage(user.profilePic),
-              )
-            else
-              const CircleAvatar(
-                backgroundImage:
-                    CachedNetworkImageProvider("https://picsum.photos/200"),
+        Flexible(
+          child: Row(
+            children: [
+              if (user.profilePic.isNotEmpty)
+                CircleAvatar(
+                  backgroundImage: MemoryImage(user.profilePic),
+                )
+              else
+                const CircleAvatar(
+                  backgroundImage:
+                      CachedNetworkImageProvider("https://picsum.photos/200"),
+                ),
+              SizedBox(width: Get.width * 0.02),
+              Text(
+                user.fullname,
+                style: Get.textTheme.titleMedium?.copyWith(
+                  color: Get.theme.primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            SizedBox(width: Get.width * 0.02),
-            Text(
-              user.fullname,
-              style: Get.textTheme.titleMedium?.copyWith(
-                color: Get.theme.primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-        OverflowBar(
-          alignment: MainAxisAlignment.center,
-          children: [
-            IconButton.filledTonal(
-              onPressed: _search,
-              icon: const Icon(Icons.search_outlined),
-            ),
-            IconButton.filledTonal(
-              onPressed: _notification,
-              icon: const Icon(Icons.notifications_outlined),
-            )
-          ],
+        Flexible(
+          child: OverflowBar(
+            alignment: MainAxisAlignment.end,
+            children: [
+              IconButton.filledTonal(
+                onPressed: _search,
+                icon: const Icon(Icons.search_outlined),
+              ),
+              IconButton.filledTonal(
+                onPressed: _notification,
+                icon: const Icon(Icons.notifications_outlined),
+              )
+            ],
+          ),
         )
       ],
     );

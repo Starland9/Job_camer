@@ -45,6 +45,7 @@ class _JobScreenState extends State<JobScreen> {
               ),
               const SizedBox(height: 16),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
