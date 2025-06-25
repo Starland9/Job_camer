@@ -5,8 +5,7 @@ import 'package:job_camer/src/models/global/global.dart';
 import 'package:job_camer/src/models/job/job.dart';
 import 'package:job_camer/src/models/user/user.dart';
 import 'package:job_camer/src/repositories/config_repository.dart';
-import 'package:job_camer/src/screens/global/global_screen.dart';
-import 'package:job_camer/src/screens/onboarding/onboarding_screen.dart';
+import 'package:job_camer/src/screens/root_screen.dart';
 import 'package:job_camer/src/shared/constants/string_const.dart';
 import 'package:job_camer/src/shared/theme/app_theme.dart';
 
@@ -25,6 +24,8 @@ void main() async {
   await Hive.openBox<User>(AppStrings.userBox);
   await Hive.openBox<GlobalConfig>(AppStrings.configBox);
 
+  ConfigRepository.init();
+
   runApp(const MyApp());
 }
 
@@ -37,14 +38,7 @@ class MyApp extends StatelessWidget {
       title: AppStrings.appName,
       theme: AppTheme.light(),
       debugShowCheckedModeBanner: false,
-      home: Builder(builder: (context) {
-        final user = ConfigRepository.configs.user;
-        if (user != null) {
-          return const GlobalScreen();
-        } else {
-          return const OnboardingScreen();
-        }
-      }),
+      home: const RootScreen(),
       locale: const Locale('fr', 'FR'),
     );
   }

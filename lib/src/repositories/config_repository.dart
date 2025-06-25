@@ -4,10 +4,10 @@ import 'package:job_camer/src/models/user/user.dart';
 import 'package:job_camer/src/shared/constants/string_const.dart';
 
 class ConfigRepository {
-  static final configs = _getConfigs();
+  static late GlobalConfig configs;
 
-  static GlobalConfig _getConfigs() {
-    return Hive.box<GlobalConfig>(AppStrings.configBox).get('global') ??
+  static void init() {
+    configs = Hive.box<GlobalConfig>(AppStrings.configBox).get('global') ??
         GlobalConfig();
   }
 
