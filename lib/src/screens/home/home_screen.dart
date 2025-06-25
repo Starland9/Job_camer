@@ -104,8 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        ButtonBar(
-          mainAxisSize: MainAxisSize.min,
+        OverflowBar(
           alignment: MainAxisAlignment.center,
           children: [
             IconButton.filledTonal(

@@ -151,6 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         applications: [],
       ),
     ).then((value) {
+      if (!mounted) return;
       context.loaderOverlay.hide();
       ToastUtils.showGoodToast(
           "Compte cree avec succes\nConnectez-vous maintenant");

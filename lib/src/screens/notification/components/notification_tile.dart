@@ -11,18 +11,15 @@ class NotificationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       tileColor: !_isRead()
-          ? Get.theme.primaryColor.withOpacity(0.1)
+          ? Get.theme.primaryColor.withValues(alpha: 0.1)
           : index % 2 == 0
               ? Colors.grey.shade200
               : null,
       title: Text(faker.lorem.sentence()),
       subtitle: Text(faker.date.dateTime().toString()),
       leading: const Icon(Icons.notifications_outlined),
-      trailing: !_isRead()
-          ? Badge(
-              backgroundColor: Get.theme.primaryColor,
-            )
-          : null,
+      trailing:
+          !_isRead() ? Badge(backgroundColor: Get.theme.primaryColor) : null,
     );
   }
 

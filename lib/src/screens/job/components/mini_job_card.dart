@@ -44,7 +44,7 @@ class _MiniJobCardState extends State<MiniJobCard> {
 
         Container(
           decoration: BoxDecoration(
-            color: _color?.withOpacity(0.2),
+            color: _color?.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Padding(

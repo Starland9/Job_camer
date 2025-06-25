@@ -114,14 +114,14 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
         title: _titleController.text,
         description: _descriptionController.text,
         company: _companyController.text,
-        companyLogo: fk.faker.image.image(keywords: ["company", "job", "tech"]),
+        companyLogo: fk.faker.image.loremPicsum(),
         location: _locationController.text,
         salary: _salaryController.text,
         requirements: _requirementController.text,
         type: _type,
       ),
     ).then((value) {
-      context.loaderOverlay.hide();
+      if (mounted) context.loaderOverlay.hide();
       ToastUtils.showGoodToast("Job créé avec succes ✅");
     });
   }

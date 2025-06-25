@@ -148,6 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
       email: _emailController.text,
       password: _passwordController.text,
     ).then((value) {
+      if (!mounted) return;
       context.loaderOverlay.hide();
       if (value == null) {
         ToastUtils.showErrorToast("Email ou mot de passe invalide");

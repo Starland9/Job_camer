@@ -22,7 +22,7 @@ class AppTheme {
         ),
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
-          fillColor: Get.theme.primaryColorLight.withOpacity(0.3),
+          fillColor: Get.theme.primaryColorLight.withValues(alpha: 0.3),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 10,
